@@ -1,0 +1,134 @@
+
+{% extends 'base/main.html' %}
+
+{% block content %}
+
+<nav class="navbar" style="background: linear-gradient(90deg, #EEA390 0%, #EB796F 43%, #EB796F 100%);">
+
+    <div class="container-fluid">
+        <h1>Welcome {{request.user | title}}</h1>
+            
+            {% if request.user.is_authenticated %}
+            <i  aria-hidden="true"></i>
+
+                <h4><a class="nav-link" href="{% url 'logout' %}">LOGOUT</a></h4>
+            {% else %}
+            <h4><a class="nav-link" href="{% url 'login' %}">LOGIN</a></h4>
+            {% endif %}
+            </span>
+    </div>
+    <h2>My ToDo List  : You have <i>{{ count }}</i> incomplete task{{count|pluralize:"s"}}</h2>
+    <hr>
+
+</nav>
+
+<!-- 
+<hr>
+
+<a href="{% url 'task-create' %}" >Add Task</a>
+
+<form method="GET" class="d-flex">
+    <input class="form-control me-2" placeholder="Tasks" type="text" name="search-area" value="{{ search_input }}">
+    <input class="btn btn-outline-success" type="submit" value="Search">
+</form> 
+<div>
+    {% for task in tasks %}
+        {% if task.complete %}
+            <i><s><a href="{% url 'task-update' task.id %}">{{ task }}</a></s></i>
+        {% else %}
+            <a href="{% url 'task-update' task.id %}" >{{ task }}</a>
+        {% endif %}
+        <a href="{% url 'task-delete' task.id %}">Delete</a>
+    {% endfor %}
+</div> -->
+
+
+
+
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-light blue-grey lighten-5 mb-4">  
+
+      <form method="GET" class="d-flex">
+        <input class="form-control" placeholder="Tasks" type="text" name="search-area" value="{{ search_input }}">
+        <input class="btn btn-outline-success" type="submit" value="Search">
+    </form>
+
+    </div>
+    <a class="btn btn-outline-success" href="{% url 'task-create' %}" >Add Task</a>
+  </nav>
+
+
+
+
+<div class="content">
+    <div class="container-fluid p-0">
+
+        <div class="row">
+                        
+            {% for task in tasks %}
+            <div class="col-12 col-md-6 col-lg-4" >
+                <div class="card bg-light mb-3" style="box-shadow: 0 0 10px 0 rgba(100, 100, 100, 0.26);">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">
+                            {% if task.complete %}
+                                <i><s><a class="card-link" href="{% url 'task-update' task.id %}">{{ task }}</a></s></i>
+                            {% else %}
+                                <a class="card-link" href="{% url 'task-update' task.id %}" >{{ task }}</a>
+                            {% endif %}
+                        </h5>
+                    </div>
+                    <div class="card-body scrollbar scrollbar-juicy-peach" 
+                    style="height:150px;overflow-y: scroll;">
+                        <p class="card-text" >{{ task.description }}
+                            
+                        </p>
+                        <a href="{% url 'task-delete' task.id %}" class="card-link">Delete</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<!-- 
+<ul class="list-group">
+    
+
+        {% for task in tasks %}
+        <li class="list-group-item list-group-flush">
+            {% if task.complete %}
+                <i><s><a href="{% url 'task-update' task.id %}">{{ task }}</a></s></i>
+            {% else %}
+                <a href="{% url 'task-update' task.id %}" >{{ task }}</a>
+            {% endif %}
+            
+            <a href="{% url 'task-delete' task.id %}">Delete</a>
+        </li>
+        {% endfor %}
+
+    
+</ul>
+ -->
+
+
+<!-- 
+
+    {% for task in tasks %}
+    <div class="d-flex align-content-around flex-wrap">
+    <tr>
+        <td>{{ task.title }}</td>
+        <td><a href="{% url 'task-update' task.id %}" >Edit</a></td>
+        <td><a href="{% url 'task-delete' task.id %}">Delete</a></td>
+    </tr>
+    </div>
+    {% empty %}
+        <h3>No Items in the List</h3>
+    {% endfor %} -->
+    
+
+
+{% endblock content %}
